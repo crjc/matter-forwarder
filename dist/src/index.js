@@ -13,6 +13,7 @@ const devices_1 = require("@matter/main/devices");
 // // Run our server
 // await node.start();
 const storage = require("node-persist");
+main_1.Logger.defaultLogLevel = main_1.LogLevel.FATAL;
 class VirtualDoorbell {
     log;
     name;
@@ -48,16 +49,14 @@ class VirtualDoorbell {
         // // Create the "node".  In Matter a "node" is a standalone device
         main_1.ServerNode.create().then(async (node) => {
             // Create the light "endpoint".  In Matter an "endpoint" is a component of a node
-            const light = await node.add(devices_1.OnOffPlugInUnitDevice);
+            const light = await node.add(devices_1.TemperatureSensorDevice);
             t.light = light;
             t.light.set({
-                onOff: {
-                    onOff: false,
+                temperatureMeasurement: {
+                    measuredValue: 1,
                 },
             });
             this._service.setCharacteristic(t.api.hap.Characteristic.On, false);
-            // Add an event handler to log the light's current status
-            light.events.onOff.onOff$Changed.on((value) => console.log(`Light is now ${value}`));
             // Run our server
             await node.start();
         });
@@ -79,8 +78,8 @@ class VirtualDoorbell {
         if (value === true) {
             if (this.light)
                 this.light.set({
-                    onOff: {
-                        onOff: true,
+                    temperatureMeasurement: {
+                        measuredValue: 1,
                     },
                 });
             if (this.timer)
@@ -90,8 +89,8 @@ class VirtualDoorbell {
                 t._service.setCharacteristic(t.api.hap.Characteristic.On, false);
                 if (t.light)
                     t.light.set({
-                        onOff: {
-                            onOff: false,
+                        temperatureMeasurement: {
+                            measuredValue: 0,
                         },
                     });
             }.bind(this), 1000);

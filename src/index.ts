@@ -1,5 +1,5 @@
-import { Endpoint, ServerNode } from "@matter/main";
-import { OnOffPlugInUnitDevice } from "@matter/main/devices";
+import { Endpoint, Logger, LogLevel, ServerNode } from "@matter/main";
+import { TemperatureSensorDevice } from "@matter/main/devices";
 import {
   AccessoryInformation,
   Switch,
@@ -28,6 +28,7 @@ import type {
 // // Run our server
 // await node.start();
 const storage = require("node-persist");
+Logger.defaultLogLevel = LogLevel.FATAL;
 
 class VirtualDoorbell implements AccessoryPlugin {
   public readonly log: Logging;
@@ -39,7 +40,7 @@ class VirtualDoorbell implements AccessoryPlugin {
   public readonly cacheDirectory: string;
   public timer?: NodeJS.Timeout;
   public readonly api: API;
-  public light?: Endpoint<OnOffPlugInUnitDevice>;
+  public light?: Endpoint<TemperatureSensorDevice>;
 
   constructor(logger: Logging, config: AccessoryConfig, api: API) {
     this.log = logger;
@@ -70,21 +71,16 @@ class VirtualDoorbell implements AccessoryPlugin {
     // // Create the "node".  In Matter a "node" is a standalone device
     ServerNode.create().then(async (node) => {
       // Create the light "endpoint".  In Matter an "endpoint" is a component of a node
-      const light = await node.add(OnOffPlugInUnitDevice);
+      const light = await node.add(TemperatureSensorDevice);
       t.light = light;
 
       t.light.set({
-        onOff: {
-          onOff: false,
+        temperatureMeasurement: {
+          measuredValue: 1,
         },
       });
 
       this._service.setCharacteristic(t.api.hap.Characteristic.On, false);
-
-      // Add an event handler to log the light's current status
-      light.events.onOff.onOff$Changed.on((value) =>
-        console.log(`Light is now ${value}`)
-      );
 
       // Run our server
       await node.start();
@@ -113,8 +109,8 @@ class VirtualDoorbell implements AccessoryPlugin {
     if (value === true) {
       if (this.light)
         this.light.set({
-          onOff: {
-            onOff: true,
+          temperatureMeasurement: {
+            measuredValue: 1,
           },
         });
 
@@ -126,8 +122,8 @@ class VirtualDoorbell implements AccessoryPlugin {
 
           if (t.light)
             t.light.set({
-              onOff: {
-                onOff: false,
+              temperatureMeasurement: {
+                measuredValue: 0,
               },
             });
         }.bind(this),

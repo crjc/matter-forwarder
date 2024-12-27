@@ -1,6 +1,5 @@
 import { ServerNode } from "@matter/main";
 import { OnOffPlugInUnitDevice } from "@matter/main/devices";
-import * as storage from "node-persist";
 // // Create the "node".  In Matter a "node" is a standalone device
 // const node = await ServerNode.create();
 // // Create the light "endpoint".  In Matter an "endpoint" is a component of a node
@@ -11,6 +10,7 @@ import * as storage from "node-persist";
 // );
 // // Run our server
 // await node.start();
+const storage = require("node-persist");
 class VirtualDoorbell {
     log;
     name;

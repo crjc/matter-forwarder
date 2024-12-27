@@ -13,7 +13,7 @@ import type {
   Logging,
   Service,
 } from "homebridge";
-import * as storage from "node-persist";
+
 // // Create the "node".  In Matter a "node" is a standalone device
 // const node = await ServerNode.create();
 
@@ -27,6 +27,7 @@ import * as storage from "node-persist";
 
 // // Run our server
 // await node.start();
+const storage = require("node-persist");
 
 class VirtualDoorbell implements AccessoryPlugin {
   public readonly log: Logging;

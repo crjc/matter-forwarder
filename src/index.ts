@@ -76,7 +76,7 @@ class VirtualDoorbell implements AccessoryPlugin {
 
       t.light.set({
         temperatureMeasurement: {
-          measuredValue: 1,
+          measuredValue: -1,
         },
       });
 
@@ -110,7 +110,7 @@ class VirtualDoorbell implements AccessoryPlugin {
       if (this.light)
         this.light.set({
           temperatureMeasurement: {
-            measuredValue: 1,
+            measuredValue: 10,
           },
         });
 
@@ -123,11 +123,11 @@ class VirtualDoorbell implements AccessoryPlugin {
           if (t.light)
             t.light.set({
               temperatureMeasurement: {
-                measuredValue: 0,
+                measuredValue: -1,
               },
             });
         }.bind(this),
-        1000
+        2500
       );
     }
   }

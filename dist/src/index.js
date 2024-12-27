@@ -53,7 +53,7 @@ class VirtualDoorbell {
             t.light = light;
             t.light.set({
                 temperatureMeasurement: {
-                    measuredValue: 1,
+                    measuredValue: -1,
                 },
             });
             this._service.setCharacteristic(t.api.hap.Characteristic.On, false);
@@ -79,7 +79,7 @@ class VirtualDoorbell {
             if (this.light)
                 this.light.set({
                     temperatureMeasurement: {
-                        measuredValue: 1,
+                        measuredValue: 10,
                     },
                 });
             if (this.timer)
@@ -90,10 +90,10 @@ class VirtualDoorbell {
                 if (t.light)
                     t.light.set({
                         temperatureMeasurement: {
-                            measuredValue: 0,
+                            measuredValue: -1,
                         },
                     });
-            }.bind(this), 1000);
+            }.bind(this), 2500);
         }
     }
 }

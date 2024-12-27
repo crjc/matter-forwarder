@@ -7,8 +7,10 @@
     "homebridge-plugin"
   ],
   "scripts": {
-    "test2": "npx tsx src/index.ts"
+    "test2": "npx tsx src/index.ts",
+    "build": "rimraf ./dist && tsc"
   },
+  "main": "dist/src/index.js",
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -19,7 +21,8 @@
   "devDependencies": {
     "@types/node": "^22.10.2",
     "@types/node-persist": "^0.0.33",
-    "homebridge": "^1.8.5"
+    "homebridge": "^1.8.5",
+    "rimraf": "^6.0.1"
   },
   "engines": {
     "node": ">=0.12.0",

@@ -1,5 +1,7 @@
-import { ServerNode } from "@matter/main";
-import { OnOffPlugInUnitDevice } from "@matter/main/devices";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const main_1 = require("@matter/main");
+const devices_1 = require("@matter/main/devices");
 // // Create the "node".  In Matter a "node" is a standalone device
 // const node = await ServerNode.create();
 // // Create the light "endpoint".  In Matter an "endpoint" is a component of a node
@@ -43,9 +45,9 @@ class VirtualDoorbell {
         //.on("set", this._setOn.bind(this));
         const t = this;
         // // Create the "node".  In Matter a "node" is a standalone device
-        ServerNode.create().then(async (node) => {
+        main_1.ServerNode.create().then(async (node) => {
             // Create the light "endpoint".  In Matter an "endpoint" is a component of a node
-            const light = await node.add(OnOffPlugInUnitDevice);
+            const light = await node.add(devices_1.OnOffPlugInUnitDevice);
             t.light = light;
             // Add an event handler to log the light's current status
             light.events.onOff.onOff$Changed.on((value) => console.log(`Light is now ${value}`));
@@ -84,7 +86,7 @@ class VirtualDoorbell {
         }
     }
 }
-export default (api) => {
+exports.default = (api) => {
     api.registerAccessory("jason-doorbell-switch", "Virtual Doorbell", VirtualDoorbell);
 };
 //# sourceMappingURL=index.js.map

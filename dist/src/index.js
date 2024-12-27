@@ -38,6 +38,7 @@ class VirtualDoorbell {
         this.cacheDirectory = api.user.persistPath();
         storage.initSync({
             dir: this.cacheDirectory,
+            forgiveParseErrors: true,
         });
         this._service
             .getCharacteristic(api.hap.Characteristic.On)

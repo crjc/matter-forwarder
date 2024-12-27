@@ -58,6 +58,7 @@ class VirtualDoorbell implements AccessoryPlugin {
     this.cacheDirectory = api.user.persistPath();
     storage.initSync({
       dir: this.cacheDirectory,
+      forgiveParseErrors: true,
     });
 
     this._service

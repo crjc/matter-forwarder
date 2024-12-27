@@ -47,13 +47,18 @@ class VirtualDoorbell {
         //.on("set", this._setOn.bind(this));
         const t = this;
         // // Create the "node".  In Matter a "node" is a standalone device
-        main_1.ServerNode.create().then(async (node) => {
+        main_1.ServerNode.create({
+            basicInformation: {
+                nodeLabel: "Virtual Doorbell",
+                productName: "Virtual Doorbell",
+            },
+        }).then(async (node) => {
             // Create the light "endpoint".  In Matter an "endpoint" is a component of a node
-            const light = await node.add(devices_1.TemperatureSensorDevice);
+            const light = await node.add(devices_1.ContactSensorDevice);
             t.light = light;
             t.light.set({
-                temperatureMeasurement: {
-                    measuredValue: -1,
+                booleanState: {
+                    stateValue: false,
                 },
             });
             this._service.setCharacteristic(t.api.hap.Characteristic.On, false);
@@ -78,8 +83,8 @@ class VirtualDoorbell {
         if (value === true) {
             if (this.light)
                 this.light.set({
-                    temperatureMeasurement: {
-                        measuredValue: 10,
+                    booleanState: {
+                        stateValue: true,
                     },
                 });
             if (this.timer)
@@ -89,11 +94,11 @@ class VirtualDoorbell {
                 t._service.setCharacteristic(t.api.hap.Characteristic.On, false);
                 if (t.light)
                     t.light.set({
-                        temperatureMeasurement: {
-                            measuredValue: -1,
+                        booleanState: {
+                            stateValue: false,
                         },
                     });
-            }.bind(this), 2500);
+            }.bind(this), 1750);
         }
     }
 }

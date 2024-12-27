@@ -1,5 +1,5 @@
 import { Endpoint, Logger, LogLevel, ServerNode } from "@matter/main";
-import { TemperatureSensorDevice } from "@matter/main/devices";
+import { ContactSensorDevice } from "@matter/main/devices";
 import {
   AccessoryInformation,
   Switch,
@@ -40,7 +40,7 @@ class VirtualDoorbell implements AccessoryPlugin {
   public readonly cacheDirectory: string;
   public timer?: NodeJS.Timeout;
   public readonly api: API;
-  public light?: Endpoint<TemperatureSensorDevice>;
+  public light?: Endpoint<ContactSensorDevice>;
 
   constructor(logger: Logging, config: AccessoryConfig, api: API) {
     this.log = logger;
@@ -69,14 +69,19 @@ class VirtualDoorbell implements AccessoryPlugin {
 
     const t = this;
     // // Create the "node".  In Matter a "node" is a standalone device
-    ServerNode.create().then(async (node) => {
+    ServerNode.create({
+      basicInformation: {
+        nodeLabel: "Virtual Doorbell",
+        productName: "Virtual Doorbell",
+      },
+    }).then(async (node) => {
       // Create the light "endpoint".  In Matter an "endpoint" is a component of a node
-      const light = await node.add(TemperatureSensorDevice);
+      const light = await node.add(ContactSensorDevice);
       t.light = light;
 
       t.light.set({
-        temperatureMeasurement: {
-          measuredValue: -1,
+        booleanState: {
+          stateValue: false,
         },
       });
 
@@ -109,8 +114,8 @@ class VirtualDoorbell implements AccessoryPlugin {
     if (value === true) {
       if (this.light)
         this.light.set({
-          temperatureMeasurement: {
-            measuredValue: 10,
+          booleanState: {
+            stateValue: true,
           },
         });
 
@@ -122,12 +127,12 @@ class VirtualDoorbell implements AccessoryPlugin {
 
           if (t.light)
             t.light.set({
-              temperatureMeasurement: {
-                measuredValue: -1,
+              booleanState: {
+                stateValue: false,
               },
             });
         }.bind(this),
-        2500
+        1750
       );
     }
   }

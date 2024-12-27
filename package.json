@@ -1,7 +1,8 @@
 {
   "name": "matter-forwarder",
+  "displayName": "Matter forwarder",
   "version": "1.0.0",
-  "description": "",
+  "description": "test",
   "type": "module",
   "keywords": [
     "homebridge-plugin"
@@ -10,11 +11,20 @@
     "test2": "npx tsx src/index.ts",
     "build": "rimraf ./dist && tsc"
   },
+  "homepage": "https://github.com/USERNAME/GITHUB_PROJECT_NAME#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/USERNAME/GITHUB_PROJECT_NAME.git"
+  },
+  "bugs": {
+    "url": "https://github.com/USERNAME/GITHUB_PROJECT_NAME/issues"
+  },
   "main": "dist/src/index.js",
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@matter/main": "^0.11.9",
+    "homebridge-lib": "^7.1.1",
     "node-persist": "^2.1.0"
   },
   "workspaces": [],

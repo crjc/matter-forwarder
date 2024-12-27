@@ -73,6 +73,14 @@ class VirtualDoorbell implements AccessoryPlugin {
       const light = await node.add(OnOffPlugInUnitDevice);
       t.light = light;
 
+      t.light.set({
+        onOff: {
+          onOff: false,
+        },
+      });
+
+      this._service.setCharacteristic(t.api.hap.Characteristic.On, false);
+
       // Add an event handler to log the light's current status
       light.events.onOff.onOff$Changed.on((value) =>
         console.log(`Light is now ${value}`)
@@ -107,7 +115,6 @@ class VirtualDoorbell implements AccessoryPlugin {
         this.light.set({
           onOff: {
             onOff: true,
-            onTime: 5,
           },
         });
 
@@ -116,8 +123,15 @@ class VirtualDoorbell implements AccessoryPlugin {
       this.timer = setTimeout(
         function () {
           t._service.setCharacteristic(t.api.hap.Characteristic.On, false);
+
+          if (t.light)
+            t.light.set({
+              onOff: {
+                onOff: false,
+              },
+            });
         }.bind(this),
-        500
+        1000
       );
     }
   }

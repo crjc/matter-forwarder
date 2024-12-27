@@ -50,6 +50,12 @@ class VirtualDoorbell {
             // Create the light "endpoint".  In Matter an "endpoint" is a component of a node
             const light = await node.add(devices_1.OnOffPlugInUnitDevice);
             t.light = light;
+            t.light.set({
+                onOff: {
+                    onOff: false,
+                },
+            });
+            this._service.setCharacteristic(t.api.hap.Characteristic.On, false);
             // Add an event handler to log the light's current status
             light.events.onOff.onOff$Changed.on((value) => console.log(`Light is now ${value}`));
             // Run our server
@@ -75,7 +81,6 @@ class VirtualDoorbell {
                 this.light.set({
                     onOff: {
                         onOff: true,
-                        onTime: 5,
                     },
                 });
             if (this.timer)
@@ -83,7 +88,13 @@ class VirtualDoorbell {
             const t = this;
             this.timer = setTimeout(function () {
                 t._service.setCharacteristic(t.api.hap.Characteristic.On, false);
-            }.bind(this), 500);
+                if (t.light)
+                    t.light.set({
+                        onOff: {
+                            onOff: false,
+                        },
+                    });
+            }.bind(this), 1000);
         }
     }
 }

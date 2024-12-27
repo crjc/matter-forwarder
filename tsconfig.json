@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "lib": ["es2020", "DOM"],
+    "module": "Node16",
+    "preserveConstEnums": true,
+    "moduleResolution": "node16",
+    "strict": true,
+    "sourceMap": true,
+    "target": "es2022",
+    "types": ["node"],
+    "outDir": "dist",
+    "noEmit": true,
+    "composite": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "noImplicitOverride": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true, 
+    "isolatedModules": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
+

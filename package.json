@@ -1,0 +1,34 @@
+{
+  "name": "matter",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "keywords": [
+    "homebridge-plugin"
+  ],
+  "scripts": {
+    "test2": "npx tsx src/index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@matter/main": "^0.11.9",
+    "node-persist": "^2.1.0"
+  },
+  "workspaces": [],
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/node-persist": "^0.0.33",
+    "homebridge": "^1.8.5"
+  },
+  "engines": {
+    "node": ">=0.12.0",
+    "homebridge": ">=1.8.0"
+  },
+  "files": [
+    "dist/**/*",
+    "src/**/*",
+    "LICENSE",
+    "README.md"
+  ]
+}

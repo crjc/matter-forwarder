@@ -1,0 +1,21 @@
+{
+  "pluginAlias": "DummySwitch",
+  "pluginType": "accessory",
+  "singular": false,
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string",
+        "required": true
+      },
+      "disableLogging": {
+        "title": "DisableLogging",
+        "type": "boolean",
+        "default": false,
+        "description": "No state change information (On/Off) will be logged. "
+      }
+    }
+  }
+}

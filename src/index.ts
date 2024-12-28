@@ -28,7 +28,7 @@ import type {
 // // Run our server
 // await node.start();
 const storage = require("node-persist");
-Logger.defaultLogLevel = LogLevel.FATAL;
+Logger.defaultLogLevel = LogLevel.NOTICE;
 
 class VirtualDoorbell implements AccessoryPlugin {
   public readonly log: Logging;
@@ -73,6 +73,9 @@ class VirtualDoorbell implements AccessoryPlugin {
       basicInformation: {
         nodeLabel: "Virtual Doorbell",
         productName: "Virtual Doorbell",
+      },
+      commissioning: {
+        passcode: 12345678900,
       },
     }).then(async (node) => {
       // Create the light "endpoint".  In Matter an "endpoint" is a component of a node

@@ -13,7 +13,7 @@ const devices_1 = require("@matter/main/devices");
 // // Run our server
 // await node.start();
 const storage = require("node-persist");
-main_1.Logger.defaultLogLevel = main_1.LogLevel.FATAL;
+main_1.Logger.defaultLogLevel = main_1.LogLevel.NOTICE;
 class VirtualDoorbell {
     log;
     name;
@@ -51,6 +51,9 @@ class VirtualDoorbell {
             basicInformation: {
                 nodeLabel: "Virtual Doorbell",
                 productName: "Virtual Doorbell",
+            },
+            commissioning: {
+                passcode: 12345678900,
             },
         }).then(async (node) => {
             // Create the light "endpoint".  In Matter an "endpoint" is a component of a node

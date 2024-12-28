@@ -76,7 +76,11 @@ class VirtualDoorbell implements AccessoryPlugin {
       },
     }).then(async (node) => {
       // Create the light "endpoint".  In Matter an "endpoint" is a component of a node
-      const light = await node.add(ContactSensorDevice);
+      const light = await node.add(ContactSensorDevice, {
+        booleanState: {
+          stateValue: false,
+        },
+      });
       t.light = light;
 
       t.light.set({
